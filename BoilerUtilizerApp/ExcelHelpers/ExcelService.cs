@@ -18,18 +18,16 @@ namespace BoilerUtilizerApp.ExcelHelpers
 
         public void WriteInput(double gasTemperature)
         {
-            using var workbook = new XLWorkbook(_path);
-            var sheet = workbook.Worksheet("Таб1");
-            sheet.Cell("С5");
-            workbook.Save();
+           if (!File.Exists(_path))
+           {
+                MessageBox.Show($"File{_path} does not exist or was not added!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+           }
+          
         }
         public double ReadOutput()
-        {
-            using var workbook = new XLWorkbook(_path);
-            var sheet = workbook.Worksheet("Результаты");
-            var cell = sheet.Cell("C27");
-            return double.TryParse(cell.Value.ToString(), out var val) ? val : 0;
-
+        {  
+            
         }
     }
 }
