@@ -23,11 +23,18 @@ namespace BoilerUtilizerApp.ExcelHelpers
                 MessageBox.Show($"File{_path} does not exist or was not added!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
            }
-          
+           using var wb = new XLWorkbook(_path);
+            var ws = wb.Worksheet("Таб1");
+            ws.Cell("C4");
+            wb.Save(); 
         }
         public double ReadOutput()
         {  
-            
+            using var wb = new XLWorkbook(_path);
+            var ws = wb.Worksheet("Результаты");
+            var data = ws.Cell("C4").GetValue<double>();
+            Console.WriteLine(data);
+            return data;
         }
     }
 }
